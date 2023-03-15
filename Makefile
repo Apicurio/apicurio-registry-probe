@@ -3,7 +3,7 @@
 
 
 # 'override' keyword prevents the variable from being overridden
-override MODULE_NAME := apicurio-registry-canary
+override MODULE_NAME := apicurio-registry-probe
 override RED := \033[0;31m
 override BLUE := \033[36m
 override NC := \033[0m

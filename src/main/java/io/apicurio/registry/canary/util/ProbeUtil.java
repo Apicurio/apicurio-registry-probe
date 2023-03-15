@@ -1,4 +1,4 @@
-package io.apicurio.registry.canary.util;
+package io.apicurio.registry.probe.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -20,9 +20,9 @@ import io.apicurio.registry.rest.v2.beans.ArtifactMetaData;
 import io.apicurio.registry.rest.v2.beans.IfExists;
 import io.apicurio.registry.types.ArtifactType;
 
-public class CanaryUtil {
+public class ProbeUtil {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CanaryUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProbeUtil.class);
 
     /**
      * Create the artifact in the registry (or update it if it already exists).
@@ -30,7 +30,7 @@ public class CanaryUtil {
      * @param artifactId
      * @param schema
      */
-    @Counted(name = "artifactsCreated", description = "How many artifacts the canary application has created.")
+    @Counted(name = "artifactsCreated", description = "How many artifacts the probe application has created.")
     public static void createSchemaInServiceRegistry(RegistryClient service, String artifactId, String schema) {
 
         LOGGER.info("---------------------------------------------------------");
@@ -47,7 +47,7 @@ public class CanaryUtil {
      *
      * @param artifactId
      */
-    @Counted(name = "artifactsDownloaded", description = "How many artifacts the canary application has downloaded.")
+    @Counted(name = "artifactsDownloaded", description = "How many artifacts the probe application has downloaded.")
     public static ArtifactMetaData getSchemaFromRegistry(RegistryClient service, String artifactId) {
 
         LOGGER.info("---------------------------------------------------------");
