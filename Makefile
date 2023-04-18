@@ -63,7 +63,7 @@ build-image:
 	@echo "======================================================================"
 	@echo " Building Image $(IMAGE_REPO)/$(IMAGE_ORG)/$(IMAGE_NAME):$(IMAGE_TAG)"
 	@echo "======================================================================"
-	docker build -f $(DOCKERFILE_PATH)/$(DOCKERFILE_NAME) -t $(IMAGE_REPO)/$(IMAGE_ORG)/$(IMAGE_NAME):$(IMAGE_TAG) $(IMAGE_BUILD_WORKSPACE) --load
+	docker build -f $(DOCKERFILE_PATH)/$(DOCKERFILE_NAME) -t $(IMAGE_REPO)/$(IMAGE_ORG)/$(IMAGE_NAME):$(IMAGE_TAG) $(IMAGE_BUILD_WORKSPACE)
 
 
 .PHONY: push-image ## Push docker image
