@@ -3,7 +3,7 @@
 
 
 # 'override' keyword prevents the variable from being overridden
-override MODULE_NAME := apicurio-registry-canary
+override MODULE_NAME := apicurio-registry-probe
 override RED := \033[0;31m
 override BLUE := \033[36m
 override NC := \033[0m
@@ -15,7 +15,7 @@ override BGreen := \033[1;32m
 BUILD_FLAGS ?=
 SKIP_TESTS ?= false
 IMAGE_ORG ?= apicurio
-IMAGE_REPO ?= docker.io
+IMAGE_REPO ?= quay.io
 IMAGE_TAG ?= latest
 IMAGE_NAME ?= $(MODULE_NAME)
 DOCKERFILE_NAME ?= Dockerfile
@@ -63,7 +63,7 @@ build-image:
 	@echo "======================================================================"
 	@echo " Building Image $(IMAGE_REPO)/$(IMAGE_ORG)/$(IMAGE_NAME):$(IMAGE_TAG)"
 	@echo "======================================================================"
-	docker build -f $(DOCKERFILE_PATH)/$(DOCKERFILE_NAME) -t $(IMAGE_REPO)/$(IMAGE_ORG)/$(IMAGE_NAME):$(IMAGE_TAG) $(IMAGE_BUILD_WORKSPACE)
+	docker build -f $(DOCKERFILE_PATH)/$(DOCKERFILE_NAME) -t $(IMAGE_REPO)/$(IMAGE_ORG)/$(IMAGE_NAME):$(IMAGE_TAG) $(IMAGE_BUILD_WORKSPACE) --load
 
 
 .PHONY: push-image ## Push docker image
