@@ -13,8 +13,8 @@ import org.eclipse.microprofile.metrics.annotation.Gauge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.event.Observes;
-import javax.ws.rs.Path;
+import jakarta.enterprise.event.Observes;
+import jakarta.ws.rs.Path;
 
 import static io.apicurio.registry.probe.util.ProbeUtil.createBasicClient;
 import static io.apicurio.registry.probe.util.ProbeUtil.createOauthClient;
@@ -94,7 +94,7 @@ public class ProbeMonitoring {
                 readArtifact(client, artifactId);
                 readArtifact(client, artifactId);
                 readArtifact(client, artifactId);
-                //deleteArtifact(client, artifactId);
+                deleteArtifact(client, artifactId);
             } catch (Exception e) {
                 log.error("Exception detected in the Probe application: {}", e.getCause(), e);
             }
