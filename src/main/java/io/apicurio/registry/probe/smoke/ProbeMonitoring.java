@@ -1,10 +1,10 @@
-package io.apicurio.registry.probe;
+package io.apicurio.registry.probe.smoke;
 
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import io.apicurio.registry.probe.util.ProbeUtil;
+import io.apicurio.registry.probe.smoke.util.ProbeUtil;
 import io.apicurio.registry.rest.client.RegistryClient;
 import io.apicurio.registry.rest.v2.beans.ArtifactMetaData;
 import io.quarkus.runtime.StartupEvent;
@@ -16,8 +16,8 @@ import org.slf4j.LoggerFactory;
 import jakarta.enterprise.event.Observes;
 import jakarta.ws.rs.Path;
 
-import static io.apicurio.registry.probe.util.ProbeUtil.createBasicClient;
-import static io.apicurio.registry.probe.util.ProbeUtil.createOauthClient;
+import static io.apicurio.registry.probe.smoke.util.ProbeUtil.createBasicClient;
+import static io.apicurio.registry.probe.smoke.util.ProbeUtil.createOauthClient;
 
 /**
  * Simple application performing the most basic operations of Apicurio Registry.

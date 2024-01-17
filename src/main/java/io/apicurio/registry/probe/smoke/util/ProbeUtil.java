@@ -1,4 +1,4 @@
-package io.apicurio.registry.probe.util;
+package io.apicurio.registry.probe.smoke.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

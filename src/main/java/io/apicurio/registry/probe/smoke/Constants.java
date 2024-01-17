@@ -1,4 +1,4 @@
-package io.apicurio.registry.probe;
+package io.apicurio.registry.probe.smoke;
 
 public class Constants {
 
