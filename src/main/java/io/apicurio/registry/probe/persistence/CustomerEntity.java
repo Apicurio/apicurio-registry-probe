@@ -4,10 +4,18 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 
 @Entity(name = "customers")
 @Cacheable
 public class CustomerEntity extends PanacheEntity {
+
+    @Id
+    @GeneratedValue(generator = "customer_id_seq_generator")
+    @SequenceGenerator(name = "customer_id_seq_generator", sequenceName = "customers_id_seq")
+    public Long id;
 
     @Column(name = "first_name")
     public String firstName;
