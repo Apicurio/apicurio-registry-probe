@@ -26,17 +26,23 @@ public class ConsumedCustomersResource {
     @Blocking
     public CompletionStage<Void> consume(Message<Envelope> customerMessage) {
         try {
-            final Value customer = customerMessage.getPayload().getBefore();
+            if (customerMessage.getPayload() != null) {
 
-            log.info(customerMessage.getPayload().toString());
+                final Value customer = customerMessage.getPayload().getBefore();
 
-            log.info("Deleting customer with email: {}", customer.getEmail());
-            CustomerEntity customerEntity = new CustomerEntity();
-            customerEntity.setId((long) customer.getId());
-            customerEntity.setEmail(customer.getEmail());
-            customerEntity.setFirstName(customer.getFirstName());
-            customerEntity.setLastName(customer.getLastName());
-            customerEntity.delete();
+                log.info(customerMessage.getPayload().toString());
+
+                log.info("Deleting customer with email: {}", customer.getEmail());
+                CustomerEntity customerEntity = new CustomerEntity();
+                customerEntity.setId((long) customer.getId());
+                customerEntity.setEmail(customer.getEmail());
+                customerEntity.setFirstName(customer.getFirstName());
+                customerEntity.setLastName(customer.getLastName());
+                customerEntity.delete();
+            } else {
+                //Tombstone message, just ack
+                customerMessage.ack();
+            }
         } catch (Exception e) {
             log.error("Exception detected in the Probe application: {}", e.getCause(), e);
             return customerMessage.nack(e);
