@@ -1,6 +1,6 @@
 package io.apicurio.registry.probe.persistence;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +10,7 @@ import jakarta.persistence.SequenceGenerator;
 
 @Entity(name = "customers")
 @Cacheable
-public class CustomerEntity extends PanacheEntity {
+public class CustomerEntity extends PanacheEntityBase {
 
     @Id
     @GeneratedValue(generator = "customer_id_seq_generator")
