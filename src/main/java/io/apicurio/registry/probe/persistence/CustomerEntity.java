@@ -1,16 +1,13 @@
 package io.apicurio.registry.probe.persistence;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 
-@Entity
+@Entity(name = "customers")
 @Cacheable
 public class CustomerEntity extends PanacheEntity {
-
 
     @Column(name = "first_name")
     public String firstName;
