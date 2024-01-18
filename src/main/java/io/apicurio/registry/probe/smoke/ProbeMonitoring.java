@@ -54,7 +54,7 @@ public class ProbeMonitoring {
         return failedDeletes;
     }
 
-    public void startMonitoring(@Observes StartupEvent startupEvent) {
+    public void startMonitoring() {
 
         oAuthclient = createOauthClient();
         basicClient = createBasicClient();
