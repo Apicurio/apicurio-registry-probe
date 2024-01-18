@@ -48,7 +48,9 @@ public class LoadGenerator {
     @Transactional
     protected void generateCustomer() throws InterruptedException {
         CustomerEntity customer = new CustomerEntity();
-        customer.setEmail(UUID.randomUUID() + "@apicurio.io");
+        String email = UUID.randomUUID() + "@apicurio.io";
+        log.info("Generating customer with email: {}", customer.getEmail());
+        customer.setEmail(email);
         customer.setFirstName(UUID.randomUUID().toString());
         customer.setLastName(UUID.randomUUID().toString());
         customer.persist();

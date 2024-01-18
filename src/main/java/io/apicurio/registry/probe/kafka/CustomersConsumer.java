@@ -2,11 +2,9 @@ package io.apicurio.registry.probe.kafka;
 
 import io.apicurio.registry.probe.persistence.CustomerEntity;
 import io.apicurio.registry.probe.smoke.ProbeMonitoring;
-import io.smallrye.mutiny.Multi;
 import io.smallrye.reactive.messaging.annotations.Blocking;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
-import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Message;
 import org.slf4j.Logger;
@@ -17,7 +15,7 @@ import server1.inventory.customers.Value;
 import java.util.concurrent.CompletionStage;
 
 @ApplicationScoped
-public class ConsumedCustomersResource {
+public class CustomersConsumer {
 
     private static final Logger log = LoggerFactory.getLogger(ProbeMonitoring.class);
 
@@ -26,11 +24,9 @@ public class ConsumedCustomersResource {
     @Blocking
     public CompletionStage<Void> consume(Message<Envelope> customerMessage) {
         try {
-            if (customerMessage.getPayload() != null && customerMessage.getPayload().getAfter() != null) {
+            if (isInsertMessage(customerMessage)) {
                 final Value customer = customerMessage.getPayload().getAfter();
-
                 log.info(customerMessage.getPayload().toString());
-
                 log.info("Deleting customer with email: {}", customer.getEmail());
                 CustomerEntity customerEntity = new CustomerEntity();
                 customerEntity.setId((long) customer.getId());
@@ -47,6 +43,10 @@ public class ConsumedCustomersResource {
             return customerMessage.nack(e);
         }
         return customerMessage.ack();
+    }
+
+    private static boolean isInsertMessage(Message<Envelope> customerMessage) {
+        return customerMessage.getPayload() != null && customerMessage.getPayload().getAfter() != null;
     }
 }
 

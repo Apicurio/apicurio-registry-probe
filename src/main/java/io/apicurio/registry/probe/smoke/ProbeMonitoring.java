@@ -103,6 +103,7 @@ public class ProbeMonitoring {
 
     private void createArtifact(RegistryClient client, String artifactId) {
         try {
+            log.info("Creating artifact with id: {}", artifactId);
             ProbeUtil.createSchemaInServiceRegistry(client, artifactId, Constants.SCHEMA);
         } catch (Exception e) {
             failedCreates++;
@@ -112,6 +113,7 @@ public class ProbeMonitoring {
 
     private void readArtifact(RegistryClient client, String artifactId) {
         try {
+            log.info("Reading artifact with id: {}", artifactId);
             final ArtifactMetaData schemaFromRegistry = ProbeUtil.getSchemaFromRegistry(client,
                     artifactId);
         } catch (Exception e) {
@@ -122,6 +124,7 @@ public class ProbeMonitoring {
 
     private void deleteArtifact(RegistryClient client, String artifactId) {
         try {
+            log.info("Deleting artifact with id: {}", artifactId);
             ProbeUtil.deleteSchema(client, artifactId);
         } catch (Exception e) {
             failedDeletes++;
