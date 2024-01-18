@@ -27,7 +27,7 @@ public class ConsumedCustomersResource {
     public CompletionStage<Void> consume(Message<Envelope> customerMessage) {
         try {
             if (customerMessage.getPayload() != null && customerMessage.getPayload().getAfter() != null) {
-                final Value customer = customerMessage.getPayload().getBefore();
+                final Value customer = customerMessage.getPayload().getAfter();
 
                 log.info(customerMessage.getPayload().toString());
 
