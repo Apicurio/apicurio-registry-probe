@@ -2,7 +2,6 @@ package io.apicurio.registry.probe.monitoring;
 
 import io.apicurio.registry.probe.persistence.CustomerEntity;
 import io.apicurio.registry.probe.smoke.ProbeMonitoring;
-import io.apicurio.registry.rest.client.RegistryClient;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.event.Observes;
 import jakarta.transaction.Transactional;
@@ -18,8 +17,6 @@ public class LoadGenerator {
     private static final Logger log = LoggerFactory.getLogger(ProbeMonitoring.class);
 
     public void startMonitoring(@Observes StartupEvent startupEvent) {
-
-
         int concurrentTasks = 2;
 
         try {
