@@ -26,8 +26,7 @@ public class ConsumedCustomersResource {
     @Blocking
     public CompletionStage<Void> consume(Message<Envelope> customerMessage) {
         try {
-            if (customerMessage.getPayload() != null) {
-
+            if (customerMessage.getPayload() != null && customerMessage.getPayload().getAfter() != null) {
                 final Value customer = customerMessage.getPayload().getBefore();
 
                 log.info(customerMessage.getPayload().toString());
