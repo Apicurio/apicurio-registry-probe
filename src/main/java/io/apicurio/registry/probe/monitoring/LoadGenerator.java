@@ -5,6 +5,7 @@ import io.apicurio.registry.probe.smoke.ProbeMonitoring;
 import io.apicurio.registry.rest.client.RegistryClient;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.event.Observes;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,13 +41,19 @@ public class LoadGenerator {
     private void generateCustomers() {
         while (true) {
             try {
-                CustomerEntity customer = new CustomerEntity();
-                customer.setEmail(UUID.randomUUID() + "@apicurio.io");
-                customer.setFirstName(UUID.randomUUID().toString());
-                customer.persist();
+                generateCustomer();
             } catch (Exception e) {
                 log.error("Exception detected in the Probe application: {}", e.getCause(), e);
             }
         }
+    }
+
+    @Transactional
+    protected void generateCustomer() throws InterruptedException {
+        CustomerEntity customer = new CustomerEntity();
+        customer.setEmail(UUID.randomUUID() + "@apicurio.io");
+        customer.setFirstName(UUID.randomUUID().toString());
+        customer.persist();
+        Thread.sleep(1000);
     }
 }
