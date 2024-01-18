@@ -16,7 +16,7 @@ public class LoadGenerator {
 
     private static final Logger log = LoggerFactory.getLogger(ProbeMonitoring.class);
 
-    public void startMonitoring() {
+    public void startMonitoring(@Observes StartupEvent startupEvent) {
         int concurrentTasks = 2;
 
         try {
