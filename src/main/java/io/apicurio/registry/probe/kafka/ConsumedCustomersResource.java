@@ -25,8 +25,11 @@ public class ConsumedCustomersResource {
     @Transactional
     @Blocking
     public CompletionStage<Void> consume(Message<Envelope> customerMessage) {
-        final Value customer = customerMessage.getPayload().getAfter();
         try {
+            final Value customer = customerMessage.getPayload().getBefore();
+
+            log.info(customerMessage.getPayload().toString());
+
             log.info("Deleting customer with email: {}", customer.getEmail());
             CustomerEntity customerEntity = new CustomerEntity();
             customerEntity.setId((long) customer.getId());
