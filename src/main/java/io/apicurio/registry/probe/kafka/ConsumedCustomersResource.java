@@ -11,6 +11,8 @@ import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import server1.inventory.customers.Envelope;
+import server1.inventory.customers.Value;
 
 import java.util.concurrent.CompletionStage;
 
@@ -22,11 +24,16 @@ public class ConsumedCustomersResource {
     @Incoming("customers-from-kafka")
     @Transactional
     @Blocking
-    public CompletionStage<Void> consume(Message<CustomerEntity> customerMessage) {
-        final CustomerEntity customer = customerMessage.getPayload();
+    public CompletionStage<Void> consume(Message<Envelope> customerMessage) {
+        final Value customer = customerMessage.getPayload().getAfter();
         try {
             log.info("Deleting customer with email: {}", customer.getEmail());
-            customer.delete();
+            CustomerEntity customerEntity = new CustomerEntity();
+            customerEntity.setId((long) customer.getId());
+            customerEntity.setEmail(customer.getEmail());
+            customerEntity.setFirstName(customer.getFirstName());
+            customerEntity.setLastName(customer.getLastName());
+            customerEntity.delete();
         } catch (Exception e) {
             log.error("Exception detected in the Probe application: {}", e.getCause(), e);
             return customerMessage.nack(e);
