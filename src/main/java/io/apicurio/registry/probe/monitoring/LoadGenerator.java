@@ -50,6 +50,7 @@ public class LoadGenerator {
         CustomerEntity customer = new CustomerEntity();
         customer.setEmail(UUID.randomUUID() + "@apicurio.io");
         customer.setFirstName(UUID.randomUUID().toString());
+        customer.setLastName(UUID.randomUUID().toString());
         customer.persist();
         Thread.sleep(1000);
     }
