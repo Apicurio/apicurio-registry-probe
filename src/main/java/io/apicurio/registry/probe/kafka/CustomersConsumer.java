@@ -4,6 +4,7 @@ import io.apicurio.registry.probe.persistence.CustomerEntity;
 import io.apicurio.registry.probe.smoke.ProbeMonitoring;
 import io.smallrye.reactive.messaging.annotations.Blocking;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Message;
@@ -38,6 +39,9 @@ public class CustomersConsumer {
                 //Tombstone message, just ack
                 customerMessage.ack();
             }
+        } catch (EntityNotFoundException enfe) {
+            log.warn("Customer in message not found: {}", enfe.getCause(), enfe);
+            return customerMessage.ack();
         } catch (Exception e) {
             log.error("Exception detected in the Probe application: {}", e.getCause(), e);
             return customerMessage.nack(e);
