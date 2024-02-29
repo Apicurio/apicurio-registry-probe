@@ -14,12 +14,7 @@ import jakarta.persistence.SequenceGenerator;
 public class CustomerEntity extends PanacheEntityBase {
 
     @Id
-    @SequenceGenerator(
-            name = "customer_id_seq_generator",
-            sequenceName = "customers_id_seq",
-            allocationSize = 1,
-            initialValue = 1005)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id_seq_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public Long id;
 
     @Column(name = "first_name")
